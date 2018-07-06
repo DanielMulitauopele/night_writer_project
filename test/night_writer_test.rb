@@ -1,0 +1,6 @@
+require ''
+
+
+class NightWriterTest
+
+end
