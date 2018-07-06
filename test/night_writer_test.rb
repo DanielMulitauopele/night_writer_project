@@ -1,7 +1,8 @@
 require "minitest/autorun"
-require 
+require
 
 # adding a new branch
 class NightWriterTest
-
+aksudbaskjdnaskdn
+kjsndckjsndckjsdn
 end
