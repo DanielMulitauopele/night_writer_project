@@ -49,3 +49,16 @@ class BrailleTranslator
       }
   end
 end
+
+def translate(messsage.txt)
+  
+end
+# def translate(input)
+#   binary_array = []
+#   input_array = input.chars
+#   input_array.each do |element|
+#     element = element.downcase
+#     binary_array << @alpha_to_binary[element]
+#   end
+#   return binary_array.join
+# end
