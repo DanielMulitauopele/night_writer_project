@@ -1,23 +1,17 @@
-require 'pry'
-
 class NightWriter
 
 ARGV == ["string_1", "string_2"]
-ARGV[0] == "string_1"
-ARGV[1] == "string_2"
+ARGV[0] == ("string_1")
+ARGV[1] == ("string_2")
 
-message_reader = File.open(ARGV[0], "r")
-incoming_text = message_reader.read
+message = File.open(ARGV[0], "r")
+speech_string = message.read
+character_count = speech_string.chars.count
+p character_count
 
-word_count = incoming_text.split.count
-message_reader.close
+message.close
 
-capitalized_text = incoming_text.upcase
-
-message_writer = File.open(ARGV[1], "w")
-message_writer.write(capitalized_text)
-
-puts word_count
-puts "Created '#{ARGV[1]}' containing #{word_count} characters."
-
+braille = File.open(ARGV[1], "w")
+braille.write(character_count)
+braille.close
 end
