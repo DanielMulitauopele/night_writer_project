@@ -53,6 +53,7 @@ class BrailleTranslator
     braille_array = []
     input_array = input.chars
     input_array.each do |element|
+      element = element.downcase
       braille_array << @alpha_to_braille[element]
     end
     return braille_array.join
