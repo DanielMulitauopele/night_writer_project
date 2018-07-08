@@ -50,12 +50,14 @@ class BrailleTranslator
   end
 
   def translate(input)
-    braille_array = []
     input_array = input.chars
-    input_array.each do |element|
+    braille_letters = input_array.map do |element|
       element = element.downcase
-      braille_array << @alpha_to_braille[element]
+      @alpha_to_braille[element]
     end
-    return braille_array.join
+
+    braille_letters_nilless = braille_letters.compact
+    organized_braille = braille_letters_nilless.transpose
+    "#{organized_braille[0].join}\n" + "#{organized_braille[1].join}\n" + "#{organized_braille[2].join}"
   end
 end
