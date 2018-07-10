@@ -52,12 +52,41 @@ class BrailleTranslator
   def translate(input)
     input_array = input.chars
     braille_letters = input_array.map do |element|
+      # binding.pry
       element = element.downcase
       @alpha_to_braille[element]
     end
 
+    # scan(/(.{80})/)
+
     braille_letters_nilless = braille_letters.compact
     organized_braille = braille_letters_nilless.transpose
-    "#{organized_braille[0].join}\n" + "#{organized_braille[1].join}\n" + "#{organized_braille[2].join}"
+# binding.pry
+    final_array = []
+    top = organized_braille[0].join
+    mid = organized_braille[1].join
+    bot = organized_braille[2].join
+
+    top_array = top.scan(/.{1,80}/)
+    mid_array = mid.scan(/.{1,80}/)
+    bot_array = bot.scan(/.{1,80}/)
+
+    final_array << top_array
+    final_array << mid_array
+    final_array << bot_array
+    # binding.pry
+
+
+    # final_final = final_array.each_index do |index|
+    #   final_array[index][0]
+    #   final_array[index][1]
+    #   final_array[index][2]
+
+
+    final_array
+    # final = "#{organized_braille[0].join}\n" + "#{organized_braille[1].join}\n" + "#{organized_braille[2].join}"
+    # x = final.scan(/.{1,80}/)
+    # y = x.each_slice(3).map {|slice| slice}
+
   end
 end
