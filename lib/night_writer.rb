@@ -15,6 +15,7 @@ message_text = message.read
 characters = message_text.chars
 character_count = (characters.count - 1)
 
+# binding.pry
 braille_translator = BrailleTranslator.new
 braille_translation = braille_translator.translate(message_text)
 
@@ -22,8 +23,11 @@ message.close
 
 # This is where we paste all the conversions we've done so far
 braille = File.open(ARGV[1], "w")
-braille.write(braille_translation)
-
+braille_translation[0].each_index do |string|
+    braille.write(braille_translation[0][string] <<"\n")
+    braille.write(braille_translation[1][string] <<"\n")
+    braille.write(braille_translation[2][string] <<"\n")
+end
 braille.close
 
 puts "Created '#{ARGV[1]}' containing #{character_count} characters."

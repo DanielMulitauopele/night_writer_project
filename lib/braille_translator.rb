@@ -61,7 +61,7 @@ class BrailleTranslator
 
     braille_letters_nilless = braille_letters.compact
     organized_braille = braille_letters_nilless.transpose
-
+# binding.pry
     final_array = []
     top = organized_braille[0].join
     mid = organized_braille[1].join
