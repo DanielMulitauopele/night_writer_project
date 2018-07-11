@@ -1,4 +1,6 @@
 class BrailleTranslator
+  attr_reader :alpha_to_braille
+
   def initialize
     @alpha_to_braille = {
       "a" => ["0.", "..", ".."],
@@ -50,18 +52,14 @@ class BrailleTranslator
   end
 
   def translate(input)
-    input_array = input.chars
-    braille_letters = input_array.map do |element|
-      # binding.pry
-      element = element.downcase
-      @alpha_to_braille[element]
-    end
-
-    # scan(/(.{80})/)
-
-    braille_letters_nilless = braille_letters.compact
+    input_array = turns_input_into_chars(input)
+    braille_letters = convert_chars_into_braille(input_array)
+    braille_letters_nilless = deletes_nil_from_array(braille_letters)
     organized_braille = braille_letters_nilless.transpose
-# binding.pry
+    final_array = create_80_line_chunks(organized_braille)
+  end
+
+  def create_80_line_chunks(organized_braille)
     final_array = []
     top = organized_braille[0].join
     mid = organized_braille[1].join
@@ -74,19 +72,20 @@ class BrailleTranslator
     final_array << top_array
     final_array << mid_array
     final_array << bot_array
-    # binding.pry
+  end
 
+  def deletes_nil_from_array(braille_letters)
+    braille_letters.compact
+  end
 
-    # final_final = final_array.each_index do |index|
-    #   final_array[index][0]
-    #   final_array[index][1]
-    #   final_array[index][2]
+  def convert_chars_into_braille(input_array)
+    input_array.map do |element|
+      element = element.downcase
+      @alpha_to_braille[element]
+    end
+  end
 
-
-    final_array
-    # final = "#{organized_braille[0].join}\n" + "#{organized_braille[1].join}\n" + "#{organized_braille[2].join}"
-    # x = final.scan(/.{1,80}/)
-    # y = x.each_slice(3).map {|slice| slice}
-
+  def turns_input_into_chars(input)
+    input.chars
   end
 end
