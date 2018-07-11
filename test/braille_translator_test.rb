@@ -43,14 +43,23 @@ def test_it_deletes_nil_from_array
   assert_equal expected, actual
 end
 
-def test_it_can_transpose_letters
-  skip
+def test_it_can_transpose_one_letter
   braille_translator = BrailleTranslator.new
-  input_array = braille_translator.turns_input_into_chars("ab")
-  braille_letters = convert_chars_into_braille(input_array)
+  input_array = braille_translator.turns_input_into_chars("a")
+  braille_letters = braille_translator.convert_chars_into_braille(input_array)
+  braille_letters_nilless = braille_translator.deletes_nil_from_array(braille_letters)
+  expected = [["0."], [".."], [".."]]
+  actual = braille_letters_nilless.transpose
+  assert_equal expected, actual
+end
 
-  expected = [["0.", "0."], ["..", "0."], ["..", ".."]]
-  actual = braille_translator.transpose(braille_letters)
+def test_it_can_transpose_more_than_one_letter
+  braille_translator = BrailleTranslator.new
+  input_array = braille_translator.turns_input_into_chars("a")
+  braille_letters = braille_translator.convert_chars_into_braille(input_array)
+  braille_letters_nilless = braille_translator.deletes_nil_from_array(braille_letters)
+  expected = [["0."], [".."], [".."]]
+  actual = braille_letters_nilless.transpose
   assert_equal expected, actual
 end
 
