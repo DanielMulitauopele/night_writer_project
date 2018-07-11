@@ -8,10 +8,4 @@ class NightWriterTest < Minitest::Test
 
     assert_instance_of NightWriter, night_writer
   end
-
-  def test_it_can_receive_inputs
-    night_writer = NightWriter.new
-
-    # assert_instance_of NightWriter, night_writer
-  end
 end
