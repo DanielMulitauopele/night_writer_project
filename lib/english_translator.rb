@@ -39,16 +39,16 @@ class EnglishTranslator
       ["..", "..", ".0"] => "cap",
       [".0", ".0", "00"] => "#",
       ["..", "..", ".."] => " ",
-      ["0.", "..", ".."] => "1",
-      ["0.", "0.", ".."] => "2",
-      ["00", "..", ".."] => "3",
-      ["00", ".0", ".."] => "4",
-      ["0.", ".0", ".."] => "5",
-      ["00", "0.", ".."] => "6",
-      ["00", "00", ".."] => "7",
-      ["0.", "00", ".."] => "8",
-      [".0", "0.", ".."] => "9",
-      [".0", "00", ".."] => "0"
+      # ["0.", "..", ".."] => "1",
+      # ["0.", "0.", ".."] => "2",
+      # ["00", "..", ".."] => "3",
+      # ["00", ".0", ".."] => "4",
+      # ["0.", ".0", ".."] => "5",
+      # ["00", "0.", ".."] => "6",
+      # ["00", "00", ".."] => "7",
+      # ["0.", "00", ".."] => "8",
+      # [".0", "0.", ".."] => "9",
+      # [".0", "00", ".."] => "0"
       }
   end
 
@@ -72,11 +72,11 @@ class EnglishTranslator
   end
 
   def split_mid_into_twos(chunk_array)
-    chunk_array[0].scan(/.{1,2}/)
+    chunk_array[1].scan(/.{1,2}/)
   end
 
   def split_bot_into_twos(chunk_array)
-    chunk_array[0].scan(/.{1,2}/)
+    chunk_array[2].scan(/.{1,2}/)
   end
 
   def zip_elements(tops_array, mids_array, bots_array)
@@ -84,6 +84,7 @@ class EnglishTranslator
   end
 
   def convert_to_letters(braille_keys)
+    # binding.pry
     braille_keys.map do |key|
       @braille_to_alpha[key]
     end
