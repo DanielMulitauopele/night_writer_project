@@ -1,9 +1,10 @@
+require 'pry'
 class EnglishTranslator
   attr_reader :braille_to_alpha
 
   def initialize
     @braille_to_alpha = {
-      ["0.", "..", "0."] => "a",
+      ["0.", "..", ".."] => "a",
       ["0.", "0.", ".."] => "b",
       ["00", "..", ".."] => "c",
       ["00", ".0", ".."] => "d",
@@ -38,26 +39,57 @@ class EnglishTranslator
       ["..", "..", ".0"] => "cap",
       [".0", ".0", "00"] => "#",
       ["..", "..", ".."] => " ",
-      ["0.", "..", ".."] => "1",
-      ["0.", "0.", ".."] => "2",
-      ["00", "..", ".."] => "3",
-      ["00", ".0", ".."] => "4",
-      ["0.", ".0", ".."] => "5",
-      ["00", "0.", ".."] => "6",
-      ["00", "00", ".."] => "7",
-      ["0.", "00", ".."] => "8",
-      [".0", "0.", ".."] => "9",
-      [".0", "00", ".."] => "0"
+      # ["0.", "..", ".."] => "1",
+      # ["0.", "0.", ".."] => "2",
+      # ["00", "..", ".."] => "3",
+      # ["00", ".0", ".."] => "4",
+      # ["0.", ".0", ".."] => "5",
+      # ["00", "0.", ".."] => "6",
+      # ["00", "00", ".."] => "7",
+      # ["0.", "00", ".."] => "8",
+      # [".0", "0.", ".."] => "9",
+      # [".0", "00", ".."] => "0"
       }
   end
 
   def translate(braille_message)
     chunk_array = break_it_up_into_chunks(braille_message)
-    tops_array = tops(chunk_array)
-    mids_array = mids(chunk_array)
-    bots_array = bots(chunk_array)
+    tops_array = split_top_into_twos(chunk_array)
+    mids_array = split_mid_into_twos(chunk_array)
+    bots_array = split_bot_into_twos(chunk_array)
     braille_keys = zip_elements(tops_array, mids_array, bots_array)
     converted = convert_to_letters(braille_keys)
     join_characters(converted)
+  end
+
+  def break_it_up_into_chunks(braille_message)
+    length = braille_message.length / 3
+    braille_message.scan(/.{1,#{length}}/)
+  end
+
+  def split_top_into_twos(chunk_array)
+    chunk_array[0].scan(/.{1,2}/)
+  end
+
+  def split_mid_into_twos(chunk_array)
+    chunk_array[1].scan(/.{1,2}/)
+  end
+
+  def split_bot_into_twos(chunk_array)
+    chunk_array[2].scan(/.{1,2}/)
+  end
+
+  def zip_elements(tops_array, mids_array, bots_array)
+    tops_array.zip(mids_array, bots_array)
+  end
+
+  def convert_to_letters(braille_keys)
+    braille_keys.map do |key|
+      @braille_to_alpha[key]
+    end
+  end
+
+  def join_characters(converted)
+    converted.join
   end
 end
