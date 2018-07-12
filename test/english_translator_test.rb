@@ -32,32 +32,32 @@ class EnglishTranslatorTest < Minitest::Test
 
   def test_it_can_zip_elements
     english_translator = EnglishTranslator.new
-    chunk_array = english_translator.break_it_up_into_chunks("0.0.0.............")
-    tops_array = english_translator.split_top_into_twos(chunk_array)
-    mids_array = english_translator.split_mid_into_twos(chunk_array)
-    bots_array = english_translator.split_bot_into_twos(chunk_array)
 
-    expected = ["0.", "..", ".."]["0.", "..", ".."]["0.", "..", ".."]
+    tops_array = ["0.", "0."]
+    mids_array = ["..", ".."]
+    bots_array = ["..", ".."]
+    expected = [["0.", "..", ".."], ["0.", "..", ".."]]
     actual = english_translator.zip_elements(tops_array, mids_array, bots_array)
 
     assert_equal expected, actual
   end
-  #
-  # def test_elements_are_in_braille
-  #   english_translator = EnglishTranslator.new
-  #
-  #   assert_equal ""
-  # end
-  #
-  # def test_braille_is_converted
-  #   english_translator = EnglishTranslator.new
-  #
-  #   assert_equal ""
-  # end
-  #
-  # def test_the_characters_are_joined
-  #   english_translator = EnglishTranslator.new
-  #
-  #   assert_equal ""
-  # end
+
+
+  def test_braille_is_converted
+    english_translator = EnglishTranslator.new
+
+    expected = ["a", "b"]
+    actual = english_translator.convert_to_letters([["0.", "..", ".."], ["0.", "0.", ".."]])
+
+    assert_equal expected, actual
+  end
+
+  def test_the_characters_are_joined
+    english_translator = EnglishTranslator.new
+
+    expected = "ab"
+    actual = english_translator.join_characters(["a", "b"])
+
+    assert_equal expected, actual
+  end
 end

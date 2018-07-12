@@ -84,7 +84,6 @@ class EnglishTranslator
   end
 
   def convert_to_letters(braille_keys)
-    # binding.pry
     braille_keys.map do |key|
       @braille_to_alpha[key]
     end
